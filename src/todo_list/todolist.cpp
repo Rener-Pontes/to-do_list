@@ -24,6 +24,11 @@ tdlst::ToDoList::ToDoList(): tasksAmount(0) {
 			
 			std::cout << "The .task_list_dir directory doesn't exists." << std::endl;
 			std::cout << "Creating in: " << dataDirectoryPath.parent_path() << std::endl;
+
+			if (not fs::exists(dataDirectoryPath))
+				throw excep::BaseDirectoryCreationException("Error: It was not possible to create the necessary directory. Try again later or create it manually.");
+			
+			std::cout << "Directory created successfully." << std::endl;
 		}
 		
 		fs::path tasksDataPath = dataDirectoryPath / dataFileName;
@@ -34,7 +39,7 @@ tdlst::ToDoList::ToDoList(): tasksAmount(0) {
 			
 			std::cout << "The saved_tasks.tsk file doesn't exists." << std::endl;
 			if (not savedTasksArch.is_open())
-				throw excep::FileOpenException("Error: The file wasn't created. Please, try again.");
+				throw excep::FileCreationException("Error: The file wasn't created. Please, try again.");
 			std::cout << "The file was successfully created." << std::endl;
 			
 			savedTasksArch << 0 << std::endl;
@@ -50,11 +55,18 @@ tdlst::ToDoList::ToDoList(): tasksAmount(0) {
 	}
 }
 tdlst::ToDoList::~ToDoList() {
-	saveList();
+	try {
+		saveList();
+	} catch (const std::exception& e) {
+		std::cerr << "Error: Save of To-Do List couldn't finish." << std::endl;
+		std::cerr << "   -" << e.what() << std::endl;
+
+		abort();
+	}
 }
 
 
-int tdlst::ToDoList::getTasksAmount() {
+int tdlst::ToDoList::getTasksAmount() const {
 	return tasksAmount;
 }
 
@@ -171,9 +183,9 @@ void tdlst::ToDoList::loadList() {
 
 bool tdlst::ToDoList::checkIndexInRange(size_t indexValue) {
 	if (indexValue < 0)
-		throw std::out_of_range("Error: Provided index is out of range.");
+		throw std::out_of_range("Error: The provided index is a negative value.");
 	if (indexValue >= taskList.size())
-		throw std::out_of_range("Error: Provided index is out of range.");
+		throw std::out_of_range("Error: The provided index is greater than the list size.");
 	
 	return true;
 }
