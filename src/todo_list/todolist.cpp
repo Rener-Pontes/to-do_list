@@ -70,10 +70,10 @@ int tdlst::ToDoList::getTasksAmount() const {
 	return tasksAmount;
 }
 
-void tdlst::ToDoList::addNewTask(std::string newTaskText) {
+void tdlst::ToDoList::addNewTask(std::string taskDescription) {
 	Task newTask = { 
 		TaskState::UNDONE, 
-		newTaskText 
+		taskDescription 
 	};
 	
 	taskList.push_back(newTask);
