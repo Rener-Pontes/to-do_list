@@ -14,39 +14,43 @@ tdlst::ToDoList::ToDoList(): tasksAmount(0) {
 	try {
 		const char* home_path = getenv("HOME");
 		
+		// Checks if the $HOME environment exists
 		if (not home_path) 
 			throw excep::HomePathNotFoundedException("Error: HOME environment variable not found. Please set it before running the program.");
 			
-		dataDirectoryPath = fs::path(home_path) / dataDirectoryFileName;
+		dataDirectoryPath = fs::path(home_path) / dataDirectoryFileName; // Concat of home_path with directory name
 		
+		// Check if the data directory already exits
 		if (not fs::exists(dataDirectoryPath)) {
 			fs::create_directory(dataDirectoryPath);
 			
 			std::cout << "The .task_list_dir directory doesn't exists." << std::endl;
 			std::cout << "Creating in: " << dataDirectoryPath.parent_path() << std::endl;
 
+			// Verify if the directory was created successfully.
 			if (not fs::exists(dataDirectoryPath))
 				throw excep::BaseDirectoryCreationException("Error: It was not possible to create the necessary directory. Try again later or create it manually.");
 			
 			std::cout << "Directory created successfully." << std::endl;
 		}
 		
-		fs::path tasksDataPath = dataDirectoryPath / dataFileName;
+		fs::path tasksDataPath = dataDirectoryPath / dataFileName; // Concat the directory_path with file name
+		// Check if the file exist
 		if (not fs::exists(tasksDataPath)){
 			std::ofstream savedTasksArch;
 			
 			savedTasksArch.open(tasksDataPath);
 			
 			std::cout << "The saved_tasks.tsk file doesn't exists." << std::endl;
-			if (not savedTasksArch.is_open())
+			if (not savedTasksArch.is_open()) // Verify if the file was created.
 				throw excep::FileCreationException("Error: The file wasn't created. Please, try again.");
 			std::cout << "The file was successfully created." << std::endl;
 			
 			savedTasksArch << 0 << std::endl;
-			savedTasksArch.close();
-			
-			loadList();
+			savedTasksArch.close();			
 		}
+
+ 		loadList();
 	} catch (const std::exception& e) {
 		std::cerr << "Error: Construction of To-Do List didn't finish." << std::endl;
 		std::cerr << "   -" << e.what() << std::endl;
@@ -99,7 +103,7 @@ void tdlst::ToDoList::editTask(std::string newText, size_t index) {
 	try {
 		checkIndexInRange(index);
 		
-		taskList.at(index).task = newText;
+		taskList.at(index).taskDescription = newText;
 		
 		std::cout << "Task edited successfully." << std::endl;
 		
@@ -148,7 +152,7 @@ void tdlst::ToDoList::saveList() {
 	
 	for (int i = 0; i < tasksAmount; i++) {
 		arch << (taskList[i].state == tdlst::TaskState::DONE ? 'm' : 'u') << " ";
-		arch << taskList[i].task << std::endl;
+		arch << taskList[i].taskDescription << std::endl;
 	}
 	
 	arch.close();
@@ -171,7 +175,7 @@ void tdlst::ToDoList::loadList() {
 		getline(arch, rawInput);
 		
 		newTask.state = rawInput[0] == 'm' ? tdlst::TaskState::DONE : tdlst::TaskState::UNDONE;
-		newTask.task = rawInput.substr(2);
+		newTask.taskDescription = rawInput.substr(2);
 		
 		taskList.push_back(newTask);
 	}
