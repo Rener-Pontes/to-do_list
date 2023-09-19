@@ -22,10 +22,13 @@ TARGET = $(BIN_DIR)/task_list
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	@mkdir -p $(BIN_DIR)  # Cria o diretório /bin/ se não existir
+	# Creates /bin/ directory if not exists
+	@mkdir -p $(BIN_DIR)  
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	# Creates /bin/ directory if not exists
+	@mkdir -p $(OBJ_DIR)  
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
