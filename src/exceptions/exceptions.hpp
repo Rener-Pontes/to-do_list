@@ -11,14 +11,32 @@ namespace excep {
 		private:
 			std::string message_;
 	};
+
+	class BaseDirectoryCreationException : public std::exception {
+	public:
+		BaseDirectoryCreationException(const std::string& message);
+		
+		virtual const char* what() const throw();
+
+	private:
+		std::string message_;
+	};
 	
 	class FileOpenException : public std::exception {
 	public:
-		FileOpenException(const std::string& message): message_(message) {}
+		FileOpenException(const std::string& message);
 		
-		virtual const char* what() const throw() {
-			return message_.c_str();
-		}
+		virtual const char* what() const throw();
+
+	private:
+		std::string message_;
+	};
+
+	class FileCreationException : public std::exception {
+	public:
+		FileCreationException(const std::string& message);
+		
+		virtual const char* what() const throw();
 
 	private:
 		std::string message_;
