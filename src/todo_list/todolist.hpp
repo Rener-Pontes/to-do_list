@@ -108,7 +108,8 @@ namespace tdlst {
 			TaskState state;
 			std::string task;
 		};
-		
+	
+	private:
 		int tasksAmount;
 		std::vector<Task> taskList;
 		std::filesystem::path dataDirectoryPath;
