@@ -5,8 +5,8 @@
 #include <iostream>
 #include <filesystem>
 
-#include "exceptions.hpp"
 #include "todolist.hpp"
+#include "../exceptions/exceptions.hpp"
 
 namespace fs = std::filesystem;
 
@@ -175,7 +175,7 @@ void tdlst::ToDoList::loadList() {
 		getline(arch, rawInput);
 		
 		newTask.state = rawInput[0] == 'm' ? tdlst::TaskState::DONE : tdlst::TaskState::UNDONE;
-		newTask.taskDescription = rawInput.substr(2);
+		newTask.taskDescription = rawInput.substr(0, 2);
 		
 		taskList.push_back(newTask);
 	}

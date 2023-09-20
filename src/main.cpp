@@ -1,16 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <filesystem>
-#include "todolist.hpp"
+#include "todo_list/todolist.hpp"
 
 void callSave() {
 	
 }
 
 int main() {
-	tdlst::ToDoList tdl;
+	tdlst::ToDoList tdl = tdlst::ToDoList();
 	
-	tdl.addNewTask("comer banana");
-	tdl.addNewTask("Fazer sabonete");
-	tdl.addNewTask("Olhar o leite.");
 }
