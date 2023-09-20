@@ -2,33 +2,30 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall
 
-# Directorys
+# Directories
 SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = bin
 
-# Source files
-SRCS = $(wildcard $(SRC_DIR)/*.cpp) \
-       $(wildcard $(SRC_DIR)/todolist/*.cpp) \
-       $(wildcard $(SRC_DIR)/exceptions/*.cpp)
+# Source and object files
+SRCS := $(wildcard $(SRC_DIR)/*.cpp) \
+        $(wildcard $(SRC_DIR)/todo_list/*.cpp) \
+        $(wildcard $(SRC_DIR)/exceptions/*.cpp)
 
-# Object files
-OBJS = $(patsybst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
 # Executable name
-TARGET = $(BIN_DIR)/task_list
+TARGET = $(BIN_DIR)/task_list.exe
 
 # Rules
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	# Creates /bin/ directory if not exists
-	@mkdir -p $(BIN_DIR)  
+	@mkdir -p $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	# Creates /bin/ directory if not exists
-	@mkdir -p $(OBJ_DIR)  
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
