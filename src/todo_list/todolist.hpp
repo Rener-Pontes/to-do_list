@@ -12,15 +12,17 @@ namespace tdlst {
 		ToDoList(const std::string& listName);
 		ToDoList(const std::string& listName, std::vector<Task>& tasksList);
 		
-		~ToDoList() = default;
-		
 		/**
 		 * @brief Returns the number of existing tasks.
 		 * 
 		 * @return The total number of existing tasks.
 		 * @const
 		 */
-		int getTasksAmount() const;
+		inline int getTasksAmount() const;
+		inline std::string getListName() const;
+		const inline std::vector<Task> getTaskList() const;
+
+		inline void changeListName(const std::string& newName);
 		
 		/**
 		 * @brief Remove/delete the specified task from the list.

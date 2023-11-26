@@ -18,8 +18,18 @@ tdlst::ToDoList::ToDoList(const std::string& listName, std::vector<Task>& tasksL
 	tasksAmount(tasksList.size()) 
 	{}
 
-int tdlst::ToDoList::getTasksAmount() const {
+inline int tdlst::ToDoList::getTasksAmount() const {
 	return tasksAmount;
+}
+inline std::string tdlst::ToDoList::getListName() const {
+	return listName;
+}
+const inline std::vector<tdlst::Task> tdlst::ToDoList::getTaskList() const {
+	return taskList;
+}
+
+inline void tdlst::ToDoList::changeListName(const std::string& newName) {
+	listName = newName;
 }
 
 void tdlst::ToDoList::addNewTask(std::string taskDescription) {
