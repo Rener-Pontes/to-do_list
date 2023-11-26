@@ -9,10 +9,10 @@
 namespace tdlst {
 	class ToDoList {
 	public:
-		ToDoList(std::string& listName);
-		ToDoList(std::string& listName, std::vector<Task>& tasksList);
+		ToDoList(const std::string& listName);
+		ToDoList(const std::string& listName, std::vector<Task>& tasksList);
 		
-		~ToDoList();
+		~ToDoList() = default;
 		
 		/**
 		 * @brief Returns the number of existing tasks.
@@ -84,6 +84,7 @@ namespace tdlst {
 	private:
 		int tasksAmount;
 
+		std::string listName;
 		std::vector<Task> taskList;
 		
 	private:

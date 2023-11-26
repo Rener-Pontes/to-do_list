@@ -7,10 +7,16 @@
 #include "../exceptions/exceptions.hpp"
 
 
-tdlst::ToDoList::~ToDoList() {
+tdlst::ToDoList::ToDoList(const std::string& listName): 
+	listName(listName),
+	tasksAmount(0) 
+	{}
 
-}
-
+tdlst::ToDoList::ToDoList(const std::string& listName, std::vector<Task>& tasksList): 
+	listName(listName), 
+	taskList(tasksList),
+	tasksAmount(tasksList.size()) 
+	{}
 
 int tdlst::ToDoList::getTasksAmount() const {
 	return tasksAmount;
