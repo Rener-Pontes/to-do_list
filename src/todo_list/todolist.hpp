@@ -1,12 +1,13 @@
 #pragma once
+
 #include <string>
 #include <vector>
 #include <filesystem>
 
+#include "../task/task.hpp"
+
+
 namespace tdlst {
-	enum class TaskState : bool 
-		{ UNDONE, DONE };
-	
 	class ToDoList {
 	public:
 		/**
@@ -101,12 +102,6 @@ namespace tdlst {
 		 */
 		void unmarkAsDone(size_t index);
 
-	private:
-		struct Task {
-			TaskState state;
-			std::string taskDescription;
-		};
-	
 	private:
 		int tasksAmount;
 
