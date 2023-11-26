@@ -9,7 +9,22 @@
 namespace tdlst {
 	class ToDoList {
 	public:
+		/**
+		 * @brief Construct a new To Do List object.
+		 * 
+		 * Construct a new object, setting it name to the provided.
+		 * 
+		 * @param listName The list name.
+		 */
 		ToDoList(const std::string& listName);
+		/**
+		 * @brief Construct a new To Do List object.
+		 * 
+		 * Construct a new object, setting it name and content to the provided.
+		 * 
+		 * @param listName 
+		 * @param tasksList 
+		 */
 		ToDoList(const std::string& listName, std::vector<Task>& tasksList);
 		
 		/**
@@ -19,9 +34,25 @@ namespace tdlst {
 		 * @const
 		 */
 		inline int getTasksAmount() const;
+		/**
+		 * @brief Returns the current List name.
+		 * 
+		 * @return The list name.
+		 * @const
+		 */
 		inline std::string getListName() const;
+		/**
+		 * @brief Returns a constant reference of the list of tasks.
+		 * 
+		 * @return Constant reference of an vector<Task>.
+		 */
 		const inline std::vector<Task> getTaskList() const;
 
+		/**
+		 * @brief Changes the name of current list.
+		 * 
+		 * @param newName The new name to be changed
+		 */
 		inline void changeListName(const std::string& newName);
 		
 		/**
