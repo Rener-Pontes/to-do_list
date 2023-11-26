@@ -10,29 +10,9 @@
 namespace tdlst {
 	class ToDoList {
 	public:
-		/**
-		 * @brief Construct a new To-Do List object
-		 * 
-		 * Responsible to instantiate a new object after a few verifications.
-		 * It verifies if the application directory exists, if not it'll be created. Also
-		 * verifies if the save file exists in the previous directory, if not it'll be
-		 * created and the content will be set to 0. If one of these creation operation
-		 * fail the method will throw an exception and abort the program.
-		 * 
-		 * @throw excep::HomePathNotFoundedException	The HOME env variable isn't defined.
-		 * @throw excep::FileOpenException    It wasn't possible to create the data file.
-		 */
-		ToDoList();
-		/**
-		 * @brief Destroy the To Do List object
-		 * 
-		 * Responsible to destroy and freeing memory after the object leaves the scope.
-		 * Also is responsible to call the saveList method and try save the modifications.
-		 * If wasn't possible to finish, a new exception will be thrown and the program
-		 * aborted.
-		 * 
-		 * @throw excep::FileOpenException    Failed attempt to open the data file to save.
-		 */
+		ToDoList(std::string& listName);
+		ToDoList(std::string& listName, std::vector<Task>& tasksList);
+		
 		~ToDoList();
 		
 		/**
