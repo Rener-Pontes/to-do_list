@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include <filesystem>
 
 #include "../task/task.hpp"
 
@@ -86,31 +85,8 @@ namespace tdlst {
 		int tasksAmount;
 
 		std::vector<Task> taskList;
-		std::filesystem::path dataDirectoryPath;
-		
-		static constexpr char dataFileName[] = "saved_tasks.tsk";
-		static constexpr char dataDirectoryFileName[] = ".task_list_dir";
 		
 	private:
-		/**
-		 * @brief Saves the list content into a file.
-		 * 
-		 * Saves the list content into a file for data persistent purposes. Only will be called when
-		 * the object is fred naturally.
-		 * 
-		 * @throw excep::FileOpenException    File opening attempt failed.
-		 */
-		void saveList();
-		/**
-		 * @brief Reads file data and load it.
-		 * 
-		 * Reads the data file content and tries to create all necessary tasks. Used to initiate the 
-		 * object. Only will be called in the object constructor.
-		 * 
-		 * @throw excep::FileOpenException    File opening attempt failed.
-		 */
-		void loadList();
-
 		/**
 		 * @brief Checks if the provided index is valid or not.
 		 * 

@@ -1,14 +1,10 @@
 #include <string>
 #include <vector>
-#include <fstream>
-#include <cstdlib>
 #include <iostream>
-#include <filesystem>
 
 #include "todolist.hpp"
+#include "../task/task.hpp"
 #include "../exceptions/exceptions.hpp"
-
-namespace fs = std::filesystem;
 
 
 tdlst::ToDoList::~ToDoList() {
@@ -84,51 +80,6 @@ void tdlst::ToDoList::unmarkAsDone(size_t index) {
 		std::cerr << "Error: On method call unmarkAsDone:" << std::endl;
 		std::cerr << "   -" << e.what() << std::endl;
 	}
-}
-
-void tdlst::ToDoList::saveList() {
-	std::ofstream arch;
-	
-	arch.open(dataDirectoryPath / dataFileName);
-	
-	if (not arch.is_open()) 
-		throw excep::FileOpenException("Error: Failed to open the file to save data.");
-	
-	arch << tasksAmount << std::endl;
-	
-	for (int i = 0; i < tasksAmount; i++) {
-		arch << (taskList[i].state == tdlst::TaskState::DONE ? 'm' : 'u') << " ";
-		arch << taskList[i].taskDescription << std::endl;
-	}
-	
-	arch.close();
-}
-void tdlst::ToDoList::loadList() {
-	std::ifstream arch;
-	
-	arch.open(dataDirectoryPath / dataFileName);
-	
-	if (not arch.is_open()) 
-		throw excep::FileOpenException("Error: Failed to open the file to load data.");
-	
-	int linesAmount;
-	arch >> linesAmount;
-	
-	for (int i = 0; i < linesAmount; i++) {
-		std::string rawInput;
-		Task newTask;
-		
-		getline(arch, rawInput);
-		
-		newTask.state = rawInput[0] == 'm' ? tdlst::TaskState::DONE : tdlst::TaskState::UNDONE;
-		newTask.taskDescription = rawInput.substr(0, 2);
-		
-		taskList.push_back(newTask);
-	}
-	
-	tasksAmount = linesAmount;
-	
-	arch.close();
 }
 
 bool tdlst::ToDoList::checkIndexInRange(size_t indexValue) {
