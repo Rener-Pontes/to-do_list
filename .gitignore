@@ -1,3 +1,4 @@
+### C/C++ ###
 # Prerequisites
 *.d
 
@@ -31,6 +32,15 @@
 *.out
 *.app
 
+
+### premake-gmake ###
+Makefile
+*.make
+obj/
+
+
 # Ignored directories and files for this project
 # Ignore the bin/ directory where the executable is built
-bin/
+build/
+premake/
+
